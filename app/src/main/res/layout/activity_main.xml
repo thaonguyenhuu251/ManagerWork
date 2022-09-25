@@ -174,7 +174,7 @@
         android:gravity="left"
         android:orientation="horizontal"
         android:paddingStart="15dp"
-        android:text="Danh sách công việc"
+        tools:text="Danh sách công việc"
         android:textColor="@color/white"
         app:layout_constraintTop_toBottomOf="@+id/btnAdd" />
 
