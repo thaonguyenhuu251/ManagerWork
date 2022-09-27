@@ -38,30 +38,30 @@ public class MainActivity extends AppCompatActivity {
         year = c.get(Calendar.YEAR);
         month = c.get(Calendar.MONTH);
         day = c.get(Calendar.DAY_OF_MONTH);
-        date = (Button) findViewById(R.id.btnDate);
-        time = (Button) findViewById(R.id.btnTime);
-        set_date = (TextView) findViewById(R.id.txtDateSet);
-        set_time = (TextView) findViewById(R.id.txtTimeSet);
+        date = findViewById(R.id.btnDate);
+        time = findViewById(R.id.btnTime);
+        set_date = findViewById(R.id.txtDateSet);
+        set_time = findViewById(R.id.txtTimeSet);
 
-        work = (EditText) findViewById(R.id.edtWork);
-        content = (EditText) findViewById(R.id.edtContent);
+        work = findViewById(R.id.edtWork);
+        content = findViewById(R.id.edtContent);
 
         setTime();
         addWork();
     }
 
     private void setTime() {
-        date1 = String.valueOf(month) + "/" + String.valueOf(day)
-                + "/" + String.valueOf(year);
+        date1 = month + "/" + day
+                + "/" + year;
         set_date.setText(date1);
-        time1 = String.valueOf(hour) + ":" + String.valueOf(min);
+        time1 = hour + ":" + min;
         set_time.setText(time1);
 
         date.setOnClickListener(v -> {
             DatePickerDialog dd = new DatePickerDialog(MainActivity.this,
-                    (DatePickerDialog.OnDateSetListener) (view, year, monthOfYear, dayOfMonth) -> {
-                        date1 = String.valueOf(monthOfYear) + "/" + String.valueOf(dayOfMonth)
-                                + "/" + String.valueOf(year);
+                    (view, year, monthOfYear, dayOfMonth) -> {
+                        date1 = monthOfYear + "/" + dayOfMonth
+                                + "/" + year;
                         set_date.setText(date1);
                     }, year, month, day);
             dd.show();
@@ -69,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
 
         time.setOnClickListener(arg0 -> {
             TimePickerDialog td = new TimePickerDialog(MainActivity.this,
-                    (TimePickerDialog.OnTimeSetListener) (view, hourOfDay, minute) -> {
-                        time1 = String.valueOf(hourOfDay) + ":" + String.valueOf(minute);
+                    (view, hourOfDay, minute) -> {
+                        time1 = hourOfDay + ":" + minute;
                         set_time.setText(time1);
                     },
                     hour, min,
@@ -81,8 +81,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addWork() {
-        ListView listView = (ListView) findViewById(R.id.lvWork);
-        Button btnAdd = (Button) findViewById(R.id.btnAdd);
+        ListView listView = findViewById(R.id.lvWork);
+        Button btnAdd = findViewById(R.id.btnAdd);
         ArrayList<String> arrList = null;
         ArrayAdapter<String> adapter = null;
     }
