@@ -63,7 +63,6 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:hint="nhập tên nội dung"
-        android:inputType="number"
         app:layout_constraintBottom_toBottomOf="@+id/txtCMND"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/txtCMND"

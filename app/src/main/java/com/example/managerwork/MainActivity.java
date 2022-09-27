@@ -11,18 +11,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements  View.OnClickListener{
     private static Button date, time;
     private static TextView set_date, set_time;
     private static EditText work, content;
     private static int hour, min;
     private String date1, time1;
+    ArrayList<JobInWeek> arrJob = new ArrayList<JobInWeek>();
+    ArrayAdapter<JobInWeek> adapter=null;
+    ListView lvWork;
 
     Calendar c;
     int year, month, day;
@@ -45,9 +49,11 @@ public class MainActivity extends AppCompatActivity {
 
         work = findViewById(R.id.edtWork);
         content = findViewById(R.id.edtContent);
+        lvWork = findViewById(R.id.lvWork);
 
         setTime();
         addWork();
+        getFormWidgets();
     }
 
     private void setTime() {
@@ -81,10 +87,46 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addWork() {
-        ListView listView = findViewById(R.id.lvWork);
         Button btnAdd = findViewById(R.id.btnAdd);
-        ArrayList<String> arrList = null;
-        ArrayAdapter<String> adapter = null;
+        btnAdd.setOnClickListener(this);
+        lvWork.setOnItemClickListener(new MyListViewEvent());
+        lvWork.setOnItemLongClickListener(new MyListViewEvent());
     }
 
+    private void getFormWidgets() {
+        adapter = new ArrayAdapter<JobInWeek>(this, android.R.layout.simple_list_item_1, arrJob);
+        lvWork.setAdapter(adapter);
+    }
+
+    public void processAddJob() {
+        String title = work.getText().toString();
+        String description = content.getText().toString();
+        JobInWeek job = new JobInWeek(title, description, date1, time1);
+        arrJob.add(job);
+        adapter.notifyDataSetChanged();
+        work.setText("");
+        content.setText("");
+        work.requestFocus();
+    }
+
+    @Override
+    public void onClick(View v) {
+        processAddJob();
+    }
+
+    private class MyListViewEvent implements
+            AdapterView.OnItemClickListener,
+            AdapterView.OnItemLongClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            Toast.makeText(MainActivity.this, arrJob.get(i).getDesciption(), Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+            arrJob.remove(i);
+            adapter.notifyDataSetChanged();
+            return false;
+        }
+    }
 }
